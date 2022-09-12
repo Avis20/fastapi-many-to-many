@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  backend:
+    build: .
+    restart: unless-stopped
+    ports:
+      - 5000:5000
+    env_file: .docker.env
+    volumes:
+      - ./src:/app/src
+      # - ./src/migrations:/app/migrations
+      # - ./src/alembic.ini:/app/alembic.ini
+    command: "poetry run python src/main.py"
+    # command: "sleep infinity"
+
+  database:
+    image: postgres:13
+    ports:
+      - 5432:5432
+    env_file: .docker.env
+    volumes:
+      - db:/var/lib/postgresql/data/
+
+volumes:
+  db:
