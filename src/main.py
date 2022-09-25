@@ -1,12 +1,16 @@
+# ./src/main.py
+
 from fastapi import FastAPI
 from uvicorn import run
 
-from src.models.base import engine, BaseModel
+from src.models.main_db import engine
 from src.settings import get_settings
+from src.routers.base import router as base_router
 
 settings = get_settings()
 
 app = FastAPI()
+app.include_router(base_router)
 
 
 @app.get("/")
@@ -17,7 +21,6 @@ def hello_world():
 @app.on_event("startup")
 def startup():
     engine.connect()
-    BaseModel.metadata.create_all(engine)
 
 
 if __name__ == "__main__":
