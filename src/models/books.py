@@ -29,5 +29,6 @@ class BookAuthors(BaseModel):
         ),
     )
 
-    book_id = sa.Column(sa.Integer, comment="ID книги")
-    author_id = sa.Column(sa.Integer, comment="ID автора")
+    book_id = sa.Column(sa.Integer, nullable=False, comment="ID книги")
+    author_id = sa.Column(sa.Integer, nullable=False, comment="ID автора")
+    description = sa.Column(sa.Text, nullable=True)

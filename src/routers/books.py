@@ -1,3 +1,4 @@
+# ./src/routers/books.py
 
 from fastapi import APIRouter
 from fastapi import Depends
@@ -14,7 +15,7 @@ router = APIRouter()
     response_model=BookSchema,
     description="Информация о книги"
 )
-def get_book(book_id: int, db_session: Session = Depends(get_db)) -> BookSchema:
+def get_book(book_id: int, db_session: Session = Depends(get_db)):
     return book_service.get_book(book_id, db_session)
 
 @router.get(
